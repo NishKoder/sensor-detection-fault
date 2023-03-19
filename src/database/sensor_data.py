@@ -20,7 +20,7 @@ class SensorData:
                 database_name=DATABASE_NAME)
 
         except Exception as e:
-            raise SensorException(e, sys) # type: ignore
+            raise SensorException(e, sys)  # type: ignore
 
     def export_collection_as_dataframe(
         self, collection_name: str, database_name: Optional[str] = None
@@ -34,7 +34,8 @@ class SensorData:
                 collection = self.mongo_client.database[collection_name]
             else:
                 # type: ignore
-                collection = self.mongo_client[database_name][collection_name] # type: ignore
+                # type: ignore
+                collection = self.mongo_client[database_name][collection_name]
             df = pd.DataFrame(list(collection.find()))
             if "_id" in df.columns.to_list():
                 df = df.drop(columns=["_id"], axis=1)
