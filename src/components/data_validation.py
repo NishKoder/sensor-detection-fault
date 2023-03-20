@@ -105,7 +105,7 @@ class DataValidation:
             # Detecting dataset drift
             validation_status = self.detect_dataset_drift(
                 base_df=train_dataframe, current_df=test_dataframe)
-            data_validation_artifact = DataValidationArtifact(
+            return DataValidationArtifact(
                 validation_status=validation_status,
                 valid_train_file_path=self.data_ingestion_artifact.trained_file_path,
                 valid_test_file_path=self.data_ingestion_artifact.test_file_path,
