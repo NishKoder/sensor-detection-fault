@@ -1,5 +1,6 @@
 import os
 from src.constant.s3_bucket import TRAINING_BUCKET_NAME
+SAVED_MODEL_DIR = os.path.join("saved_models")
 
 # defining the common constants variables for training pipeline
 TARGET_COLUMN = 'class'
@@ -49,12 +50,24 @@ MODEL_TRAINER_DIR_NAME: str = "model_trainer"
 MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
 MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
 MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
+MODEL_TRAINER_OVER_FITTING_UNDER_FITTING_THRESHOLD : float = 0.05   # 5% difference
 MODEL_TRAINER_MODEL_CONFIG_FILE_PATH: str = os.path.join(
     "config", "model.yaml")
+
+
 """
-MODEL Evaluation related constant start with MODEL_EVALUATION var name
+Model Evaluation related constants starts with MODEL_EVALUATION VAR NAME
 """
 
-MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
-MODEL_PUSHER_BUCKET_NAME = TRAINING_BUCKET_NAME
-MODEL_PUSHER_S3_KEY = "model-registry"
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE : float = 0.02   # 2% 
+MODEL_EVALUATION_DIR_NAME : str = "model_evaluation"
+MODEL_EVALUATION_REPORT_NAME : str = "report.yaml"
+
+
+
+"""
+Model Pusher related constants starts with MODEL_PUSHER VAR NAME
+"""
+
+MODEL_PUSHER_DIR_NAME = "model_pusher"
+MODEL_PUSHER_SAVED_MODEL_DIR = SAVED_MODEL_DIR

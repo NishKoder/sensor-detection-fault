@@ -31,19 +31,21 @@ class ClassificationMetricArtifact:
 @dataclass
 class ModelTrainerArtifact:
     trained_model_file_path: str
-    metric_artifact: ClassificationMetricArtifact
+    train_metric_artifact: ClassificationMetricArtifact
+    test_metric_artifact: ClassificationMetricArtifact
 
 
 @dataclass
 class ModelEvaluationArtifact:
     is_model_accepted: bool
-    changed_accuracy: float
+    improved_accuracy: float
     best_model_path: str
     trained_model_path: str
+    train_model_metric_artifact: ClassificationMetricArtifact
     best_model_metric_artifact: ClassificationMetricArtifact
 
 
 @dataclass
 class ModelPusherArtifact:
-    bucket_name: str
-    s3_model_path: str
+    saved_model_path : str
+    model_file_path : str

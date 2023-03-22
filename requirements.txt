@@ -6,5 +6,6 @@ dill
 scikit-learn==1.1.3
 PyYAML
 imblearn==0.0
+xgboost
 scipy
 -e .

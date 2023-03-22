@@ -5,6 +5,7 @@ __pycache__/
 artifact
 .vscode
 logs
+saved_models/*
 # C extensions
 *.so
 

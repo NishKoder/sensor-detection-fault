@@ -1,5 +1,6 @@
 import sys
-
+from src.constant.training_pipeline import SAVED_MODEL_DIR, MODEL_FILE_NAME
+import os
 from pandas import DataFrame
 from sklearn.pipeline import Pipeline
 
@@ -30,12 +31,41 @@ class SensorModel:
             logging.info("Using the trained model to get predictions")
             transformed_feature = self.preprocessing_object.transform(dataframe)
             logging.info("Used the trained model to get predictions")
-            return self.trained_model_object.predict(transformed_feature)
+            return self.trained_model_object.predict(transformed_feature) # type: ignore
         except Exception as e:
-            raise SensorException(e, sys) from e
+            raise SensorException(e, sys) # type: ignore
 
     def __repr__(self):
         return f"{type(self.trained_model_object).__name__}()"
 
     def __str__(self):
         return f"{type(self.trained_model_object).__name__}()"
+    
+
+class ModelResolver:
+    def __init__(self, model_dir = SAVED_MODEL_DIR):
+        try:
+            self.model_dir = model_dir
+        except Exception as e:
+            raise e
+        
+    def get_best_model_path(self) -> str:
+        try:
+            timestamps = list(os.listdir(SAVED_MODEL_DIR))
+            latest_timestamp = max(timestamps)
+            return os.path.join(self.model_dir, f"{latest_timestamp}", MODEL_FILE_NAME)
+        except Exception as e:
+            raise e
+        
+    
+    def is_model_exists(self) -> bool:
+        try:
+            if not os.path.exists(self.model_dir):
+                return False
+            timestamps = os.listdir(self.model_dir)
+            if len(timestamps) == 0:
+                return False
+            latest_model_path = self.get_best_model_path()
+            return bool(os.path.exists(latest_model_path))
+        except Exception as e:
+            raise e
